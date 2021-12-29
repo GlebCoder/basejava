@@ -1,11 +1,11 @@
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int size;
 
     void clear() {
         Arrays.fill(storage, 0, size(), null);
@@ -13,6 +13,7 @@ public class ArrayStorage {
 
     void save(Resume r) {
         storage[size()] = r;
+        size++;
     }
 
     Resume get(String uuid) {
@@ -25,28 +26,12 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = null;
-                break;
-            }
-        }
-
-        Arrays.sort(storage, new Comparator<Resume>() {
-            @Override
-            public int compare(Resume resume, Resume t1) {
-                if (resume == null && t1 == null) {
-                    return 0;
-                }
-                if(resume == null) {
-                    return 1;
-                }
-                if(t1 == null) {
-                    return -1;
-                }
-                return resume.uuid.compareTo(t1.uuid);
-            }
-        });
+        Resume[] tempArray = new Resume[storage.length - 1];
+        int index = getIndexByUuid(uuid);
+        System.arraycopy(storage, 0, tempArray, 0, index);
+        System.arraycopy(storage, index + 1, tempArray, index, storage.length - index - 1);
+        storage = tempArray;
+        size--;
     }
 
     /**
@@ -58,12 +43,16 @@ public class ArrayStorage {
 
 // Determines amount of Resumes in storage
     int size() {
+        return size;
+    }
+
+    int getIndexByUuid(String uuid) {
         for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
+            if (storage[i].uuid.equals(uuid)) {
                 return i;
             }
         }
-        return storage.length;
+        return -1;
     }
 
 }
