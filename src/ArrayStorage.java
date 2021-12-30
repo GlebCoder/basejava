@@ -28,9 +28,11 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         int index = getIndex(uuid);
-        storage[index] = storage[size - 1];
-        storage[size - 1] = null;
-        size--;
+        if (index != -1) {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        }
     }
 
     /**
@@ -46,7 +48,7 @@ public class ArrayStorage {
     }
 
     int getIndex(String uuid) {
-        for (int i = 0; i < storage.length; i++) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return i;
             }
