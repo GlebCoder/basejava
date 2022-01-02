@@ -13,25 +13,46 @@ public class ArrayStorage {
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
     public void save(Resume r) {
-        storage[size] = r;
-        size++;
+        int index = getIndex(r.getUuid());
+        if (index != -1) {
+            System.out.println("The resume already exists in the storage");
+        } else if (size < storage.length){
+            storage[size] = r;
+            size++;
+        } else {
+            System.out.println("The operation can not be done because of the storage overflow");
+        }
+    }
+
+    public void update(Resume r) {
+        int index = getIndex(r.getUuid());
+        if (index != -1) {
+            storage[index] = r;
+        } else {
+            System.out.println("The resume does not exist in the storage");
+        }
+
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("There is no resume with uuid: " + uuid);
+            return null;
+        } else {
+            return storage[index];
         }
-        return null;
     }
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index != -1) {
+        if (index == -1) {
+            System.out.println("The resume with uuid: " + uuid + " has not been found.");
+        } else {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
@@ -50,12 +71,20 @@ public class ArrayStorage {
         return size;
     }
 
-    int getIndex(String uuid) {
+    private int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }
         return -1;
+    }
+
+    private boolean isPresent(Resume r) {
+        int index = getIndex(r.getUuid());
+        if (index == -1) {
+            return false;
+        }
+        return true;
     }
 }
