@@ -3,7 +3,7 @@ package com.basejava.webapp.model;
 /**
  * Initial resume class
  */
-public class Resume {
+public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private String uuid;
@@ -36,5 +36,10 @@ public class Resume {
     @Override
     public int hashCode() {
         return uuid.hashCode();
+    }
+
+    @Override
+    public int compareTo(Resume resume) {
+        return uuid.compareTo(resume.uuid);
     }
 }
