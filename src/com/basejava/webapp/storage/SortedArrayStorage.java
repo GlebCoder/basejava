@@ -6,13 +6,10 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
-    public void insert(Resume resume) {
-        int insertPoint = - (getIndex(resume.getUuid()) + 1);
-        for (int i = size; i > insertPoint; i--) {
-            storage[i] = storage[i - 1];
-        }
+    public void insert(int index, Resume resume) {
+        int insertPoint = -(index + 1);
+        System.arraycopy(storage, insertPoint, storage, insertPoint + 1, size - insertPoint);
         storage[insertPoint] = resume;
-        size++;
     }
 
     @Override
@@ -23,12 +20,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void removeElement(String uuid) {
-        int index = getIndex(uuid);
-        for (int i = index; i < size - 1; i++) {
-            storage[i] = storage[i + 1];
-        }
-        storage[size - 1] = null;
-        size--;
+    public void removeElement(int index) {
+        System.arraycopy(storage, index + 1, storage, index, size - index);
     }
 }

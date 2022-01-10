@@ -4,7 +4,7 @@ import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage implements Storage{
+public abstract class AbstractArrayStorage implements Storage {
 
     protected static final int STORAGE_LIMIT = 10000;
 
@@ -21,11 +21,13 @@ public abstract class AbstractArrayStorage implements Storage{
         if (index >= 0) {
             System.out.println("The resume with uuid: " + resume.getUuid() + " already exists in the storage");
         } else if (size < STORAGE_LIMIT) {
-            insert(resume);
+            insert(index, resume);
+            size++;
         } else {
             System.out.println("The operation can not be done because of the storage overflow");
         }
-    };
+    }
+
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
@@ -48,7 +50,9 @@ public abstract class AbstractArrayStorage implements Storage{
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index >= 0) {
-            removeElement(uuid);
+            removeElement(index);
+            storage[size - 1] = null;
+            size--;
         } else {
             System.out.println("The resume with uuid: " + uuid + " has not been found.");
         }
@@ -64,7 +68,7 @@ public abstract class AbstractArrayStorage implements Storage{
 
     abstract protected int getIndex(String uuid);
 
-    abstract protected void insert(Resume resume);
+    abstract protected void insert(int index, Resume resume);
 
-    abstract protected void removeElement(String uuid);
+    abstract protected void removeElement(int index);
 }
