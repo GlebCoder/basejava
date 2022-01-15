@@ -1,5 +1,8 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.exception.ExistStorageException;
+import com.basejava.webapp.exception.NotExistStorageException;
+import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -19,12 +22,12 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index >= 0) {
-            System.out.println("The resume with uuid: " + resume.getUuid() + " already exists in the storage");
+             throw new ExistStorageException(resume.getUuid());
         } else if (size < STORAGE_LIMIT) {
             insert(index, resume);
             size++;
         } else {
-            System.out.println("The operation can not be done because of the storage overflow");
+            throw new StorageException("The operation can not be done because of the storage overflow", resume.getUuid());
         }
     }
 
@@ -34,7 +37,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             storage[index] = resume;
         } else {
-            System.out.println("The resume with uuid: " + resume.getUuid() + " does not exist in the storage");
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
@@ -43,8 +46,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             return storage[index];
         }
-        System.out.println("There is no resume with uuid: " + uuid);
-        return null;
+        throw new NotExistStorageException(uuid);
     }
 
     public void delete(String uuid) {
@@ -54,7 +56,7 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("The resume with uuid: " + uuid + " has not been found.");
+            throw new NotExistStorageException(uuid);
         }
     }
 
