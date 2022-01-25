@@ -17,31 +17,31 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public void saveIfNotExisting(Object keyOrIndex, Resume resume) {
+    public void saveResume(Object searchkey, Resume resume) {
         if (size < STORAGE_LIMIT) {
-            insertElement((Integer) keyOrIndex, resume);
+            insertElement((Integer) searchkey, resume);
             size++;
         } else {
             throw new StorageException("The operation can not be done because of the storage overflow", resume.getUuid());
         }
     }
 
-    public void updateIfExisting(Resume resume, Object keyOrIndex) {
-        storage[(Integer) keyOrIndex] = resume;
+    public void updateResume(Resume resume, Object searchkey) {
+        storage[(Integer) searchkey] = resume;
     }
 
-    public Resume getByKeyOrIndex(Object keyOrIndex) {
-        return storage[(Integer) keyOrIndex];
+    public Resume getBySearchkey(Object searchkey) {
+        return storage[(Integer) searchkey];
     }
 
-    public void deleteIfExisting(Object keyOrIndex) {
-        removeElement((Integer) keyOrIndex);
+    public void deleteResume(Object searchkey) {
+        removeElement((Integer) searchkey);
         storage[size - 1] = null;
         size--;
     }
 
-    protected boolean isExisting(Object keyOrIndex) {
-        return (Integer) keyOrIndex >= 0;
+    protected boolean isExist(Object searchkey) {
+        return (Integer) searchkey >= 0;
     }
 
     public Resume[] getAll() {

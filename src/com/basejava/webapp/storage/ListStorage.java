@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage{
-    List<Resume> storage = new ArrayList<>();
+    private List<Resume> storage = new ArrayList<>();
 
     @Override
-    protected Integer getKeyOrIndex(String uuid) {
+    protected Integer getSearchkey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -19,32 +19,28 @@ public class ListStorage extends AbstractStorage{
     }
 
     @Override
-    protected Resume getByKeyOrIndex(Object keyOrIndex) {
-        return storage.get((Integer) keyOrIndex);
+    protected Resume getBySearchkey(Object searchkey) {
+        return storage.get((Integer) searchkey);
     }
 
     @Override
-    protected void saveIfNotExisting(Object keyOrIndex, Resume resume) {
+    protected void saveResume(Object searchkey, Resume resume) {
         storage.add(resume);
     }
 
     @Override
-    protected void deleteIfExisting(Object keyOrIndex) {
-        storage.remove(((Integer) keyOrIndex).intValue());
+    protected void deleteResume(Object searchkey) {
+        storage.remove(((Integer) searchkey).intValue());
     }
 
     @Override
-    protected void updateIfExisting(Resume resume, Object keyOrIndex) {
-        storage.set((Integer) keyOrIndex, resume);
+    protected void updateResume(Resume resume, Object searchkey) {
+        storage.set((Integer) searchkey, resume);
     }
 
     @Override
-    protected boolean isExisting(Object keyOrIndex) {
-        if((Integer) keyOrIndex >= 0) {
-            return true;
-        } else {
-            return false;
-        }
+    protected boolean isExist(Object searchkey) {
+        return (Integer) searchkey >= 0;
     }
 
     @Override

@@ -7,52 +7,50 @@ import com.basejava.webapp.model.Resume;
 public abstract class AbstractStorage implements Storage{
 
     public void save(Resume resume) {
-        Object keyOrIndex = getIfNotExisting(resume.getUuid());
-        saveIfNotExisting(keyOrIndex, resume);
+        Object searchkey = getIfNotExist(resume.getUuid());
+        saveResume(searchkey, resume);
     }
 
     public void update(Resume resume) {
-        Object keyOrIndex = getIfExisting(resume.getUuid());
-        updateIfExisting(resume, keyOrIndex);
+        Object searchkey = getIfExist(resume.getUuid());
+        updateResume(resume, searchkey);
     }
 
     public Resume get(String uuid) {
-        Object keyOrIndex = getIfExisting(uuid);
-        return getByKeyOrIndex(keyOrIndex);
+        Object searchkey = getIfExist(uuid);
+        return getBySearchkey(searchkey);
     }
 
     public void delete(String uuid) {
-        Object keyOrIndex = getIfExisting(uuid);
-        deleteIfExisting(keyOrIndex);
+        Object searchkey = getIfExist(uuid);
+        deleteResume(searchkey);
     }
 
-    private Object getIfExisting(String uuid) {
-        Object keyOrIndex = getKeyOrIndex(uuid);
-        if(!isExisting(keyOrIndex)) {
+    private Object getIfExist(String uuid) {
+        Object searchkey = getSearchkey(uuid);
+        if(!isExist(searchkey)) {
             throw new NotExistStorageException(uuid);
-        } else {
-            return keyOrIndex;
         }
+        return searchkey;
     }
 
-    private Object getIfNotExisting(String uuid) {
-        Object keyOrIndex = getKeyOrIndex(uuid);
-        if(isExisting(keyOrIndex)) {
+    private Object getIfNotExist(String uuid) {
+        Object searchkey = getSearchkey(uuid);
+        if(isExist(searchkey)) {
             throw new ExistStorageException(uuid);
-        } else {
-            return keyOrIndex;
         }
+        return searchkey;
     }
 
-    protected abstract Object getKeyOrIndex(String uuid);
+    protected abstract Object getSearchkey(String uuid);
 
-    protected abstract Resume getByKeyOrIndex(Object keyOrIndex);
+    protected abstract Resume getBySearchkey(Object searchkey);
 
-    protected abstract void saveIfNotExisting(Object keyOrIndex, Resume resume);
+    protected abstract void saveResume(Object searchkey, Resume resume);
 
-    protected abstract void deleteIfExisting(Object keyOrIndex);
+    protected abstract void deleteResume(Object searchkey);
 
-    protected abstract void updateIfExisting(Resume resume, Object keyOrIndex);
+    protected abstract void updateResume(Resume resume, Object searchkey);
 
-    protected abstract boolean isExisting(Object keyOrIndex);
+    protected abstract boolean isExist(Object searchkey);
 }
