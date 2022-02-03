@@ -90,10 +90,10 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Resume[] allResumes = {RESUME1, RESUME2, RESUME3};
-        Resume[] sortedStorage = storage.getAll();
-        Arrays.sort(sortedStorage);
-        Assert.assertArrayEquals(allResumes, sortedStorage);
+        Resume[] expectedResumes = {RESUME1, RESUME2, RESUME3};
+        Resume[] actualResumes = storage.getAll();
+        Arrays.sort(actualResumes);
+        Assert.assertArrayEquals(expectedResumes, actualResumes);
     }
 
     @Test

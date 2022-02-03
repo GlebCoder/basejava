@@ -30,7 +30,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         storage[(Integer) searchkey] = resume;
     }
 
-    public Resume getBySearchkey(Object searchkey) {
+    public Resume getBySearchKey(Object searchkey) {
         return storage[(Integer) searchkey];
     }
 

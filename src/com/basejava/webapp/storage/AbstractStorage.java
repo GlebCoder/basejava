@@ -7,44 +7,44 @@ import com.basejava.webapp.model.Resume;
 public abstract class AbstractStorage implements Storage{
 
     public void save(Resume resume) {
-        Object searchkey = getIfNotExist(resume.getUuid());
-        saveResume(searchkey, resume);
+        Object searchKey = getIfNotExist(resume.getUuid());
+        saveResume(searchKey, resume);
     }
 
     public void update(Resume resume) {
-        Object searchkey = getIfExist(resume.getUuid());
-        updateResume(resume, searchkey);
+        Object searchKey = getIfExist(resume.getUuid());
+        updateResume(resume, searchKey);
     }
 
     public Resume get(String uuid) {
-        Object searchkey = getIfExist(uuid);
-        return getBySearchkey(searchkey);
+        Object searchKey = getIfExist(uuid);
+        return getBySearchKey(searchKey);
     }
 
     public void delete(String uuid) {
-        Object searchkey = getIfExist(uuid);
-        deleteResume(searchkey);
+        Object searchKey = getIfExist(uuid);
+        deleteResume(searchKey);
     }
 
     private Object getIfExist(String uuid) {
-        Object searchkey = getSearchkey(uuid);
-        if(!isExist(searchkey)) {
+        Object searchKey = getSearchKey(uuid);
+        if(!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
-        return searchkey;
+        return searchKey;
     }
 
     private Object getIfNotExist(String uuid) {
-        Object searchkey = getSearchkey(uuid);
-        if(isExist(searchkey)) {
+        Object searchKey = getSearchKey(uuid);
+        if(isExist(searchKey)) {
             throw new ExistStorageException(uuid);
         }
-        return searchkey;
+        return searchKey;
     }
 
-    protected abstract Object getSearchkey(String uuid);
+    protected abstract Object getSearchKey(String uuid);
 
-    protected abstract Resume getBySearchkey(Object searchkey);
+    protected abstract Resume getBySearchKey(Object searchkey);
 
     protected abstract void saveResume(Object searchkey, Resume resume);
 
