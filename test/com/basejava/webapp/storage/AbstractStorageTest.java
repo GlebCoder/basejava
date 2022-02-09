@@ -7,20 +7,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
     protected Storage storage;
     private final String UUID_1 = "uuid1";
-    private final Resume RESUME1 = new Resume(UUID_1);
+    private final Resume RESUME1 = new Resume(UUID_1, "Name1");
     private final String UUID_2 = "uuid2";
-    private final Resume RESUME2 = new Resume(UUID_2);
+    private final Resume RESUME2 = new Resume(UUID_2, "Name2");
     private final String UUID_3 = "uuid3";
-    private final Resume RESUME3 = new Resume(UUID_3);
+    private final Resume RESUME3 = new Resume(UUID_3, "Name3");
     private final String UUID_4 = "uuid4";
-    private final Resume RESUME4 = new Resume(UUID_4);
+    private final Resume RESUME4 = new Resume(UUID_4, "Name4");
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -55,7 +57,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() throws Exception {
-        Resume resume = new Resume(UUID_1);
+        Resume resume = new Resume(UUID_1, "Name1");
         storage.update(resume);
         assertEquals(resume, storage.get(UUID_1));
     }
@@ -88,27 +90,15 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() throws Exception {
-        Resume[] expectedResumes = {RESUME1, RESUME2, RESUME3};
-        Resume[] actualResumes = storage.getAll();
-        Arrays.sort(actualResumes);
-        Assert.assertArrayEquals(expectedResumes, actualResumes);
+    public void getAllSorted() throws Exception {
+        List<Resume> expectedResumes = new ArrayList<>(List.of(RESUME1, RESUME2, RESUME3));
+        List<Resume> actualResumes = storage.getAllSorted();
+        Collections.sort(expectedResumes);
+        Assert.assertEquals(expectedResumes, actualResumes);
     }
 
     @Test
     public void size() throws Exception {
         assertEquals(3, storage.size());
     }
-
-//    @Test(expected = StorageException.class)
-//    public void checkOverflow() {
-//        try {
-//            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
-//                storage.save(new Resume());
-//            }
-//        } catch (StorageException e) {
-//            Assert.fail("The array overflow has happened prematurely!");
-//        }
-//        storage.save(new Resume());
-//    }
 }

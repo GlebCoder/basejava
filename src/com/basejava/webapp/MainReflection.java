@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class MainReflection {
 
     public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Resume resume = new Resume();
+        Resume resume = new Resume("Name");
         System.out.println(resume);
         Field[] fields = resume.getClass().getDeclaredFields();
         System.out.println(Arrays.toString(fields));
