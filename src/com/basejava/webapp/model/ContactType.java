@@ -9,7 +9,8 @@ public enum ContactType {
     EMAIL("Email"),
     LINKEDIN("Linkedin"),
     GITHUB("GitHub"),
-    HOME_PAGE("Webpage");
+    HOME_PAGE("Webpage"),
+    STACKOVERFLOW("Stackoveflow");
 
     private final String type;
 
