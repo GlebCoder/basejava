@@ -196,7 +196,9 @@ public class ResumeTestData {
 
     private static void printResume(Resume resume) {
         System.out.println(resume.getFullName().toUpperCase());
-        System.out.println(resume.getContacts().values());
+        for (Map.Entry<ContactType, String> contactEntry : resume.getContacts().entrySet()) {
+            System.out.println(contactEntry.getKey() + ": " + contactEntry.getValue());
+        }
         for (Map.Entry<SectionType, Section> entry : resume.getSections().entrySet()) {
             System.out.println();
             System.out.println(entry.getKey().getType());
