@@ -3,10 +3,10 @@ package com.basejava.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class ComplexSection implements Section{
+public class BulletedListSection implements Section {
     private final List<String> contents;
 
-    public ComplexSection(List<String> contents) {
+    public BulletedListSection(List<String> contents) {
         this.contents = contents;
     }
 
@@ -23,7 +23,7 @@ public class ComplexSection implements Section{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ComplexSection that = (ComplexSection) o;
+        BulletedListSection that = (BulletedListSection) o;
         return Objects.equals(contents, that.contents);
     }
 

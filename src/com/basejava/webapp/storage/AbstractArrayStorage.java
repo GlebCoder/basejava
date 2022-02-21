@@ -19,12 +19,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     public void saveResume(Integer searchKey, Resume resume) {
-        if (size < STORAGE_LIMIT) {
-            insertElement(searchKey, resume);
-            size++;
-        } else {
+        if (size >= STORAGE_LIMIT) {
             throw new StorageException("The operation can not be done because of the storage overflow", resume.getUuid());
         }
+        insertElement(searchKey, resume);
+        size++;
     }
 
     public void updateResume(Resume resume, Integer searchKey) {
@@ -55,7 +54,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         return size;
     }
 
-    abstract protected void insertElement(Integer index, Resume resume);
+    abstract protected void insertElement(int index, Resume resume);
 
-    abstract protected void removeElement(Integer index);
+    abstract protected void removeElement(int index);
 }

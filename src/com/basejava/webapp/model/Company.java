@@ -3,11 +3,11 @@ package com.basejava.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Experience {
+public class Company {
     private final String companyName;
     private List<Position> positions;
 
-    public Experience(String companyName, List<Position> positions) {
+    public Company(String companyName, List<Position> positions) {
         this.companyName = companyName;
         this.positions = positions;
     }
@@ -24,7 +24,7 @@ public class Experience {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Experience that = (Experience) o;
+        Company that = (Company) o;
         return Objects.equals(companyName, that.companyName) && Objects.equals(positions, that.positions);
     }
 

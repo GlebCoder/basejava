@@ -1,4 +1,6 @@
-package com.basejava.webapp.model;
+package com.basejava.webapp;
+
+import com.basejava.webapp.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class ResumeTestData {
         resume.addSection(SectionType.PERSONAL, personal);
 
         List<String> allAchievements = new ArrayList<>();
-        Section achievements = new ComplexSection(allAchievements);
+        Section achievements = new BulletedListSection(allAchievements);
         resume.addSection(SectionType.ACHIEVEMENTS, achievements);
         allAchievements.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", "
                 + "\"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). "
@@ -67,7 +69,7 @@ public class ResumeTestData {
                 + " (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
 
         List<String> allQualifications = new ArrayList<>();
-        Section qualifications = new ComplexSection(allQualifications);
+        Section qualifications = new BulletedListSection(allQualifications);
         resume.addSection(SectionType.QUALIFICATIONS, qualifications);
         allQualifications.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2");
         allQualifications.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce");
@@ -92,16 +94,16 @@ public class ResumeTestData {
                 + " архитектурных шаблонов, UML, функционального программирования");
         allQualifications.add("Родной русский, английский \"upper intermediate\"");
 
-        List<Experience> allJobs = new ArrayList<>();
+        List<Company> allJobs = new ArrayList<>();
         Section experiences = new CompanySection(allJobs);
         resume.addSection(SectionType.EXPERIENCE, experiences);
 
-        Position javaOnlineProjectsPoition1 = new Position( LocalDate.of(2013, 10, 01),
-                LocalDate.now(),"Автор проекта.",
+        Position javaOnlineProjectsPoition1 = new Position(LocalDate.of(2013, 10, 01),
+                LocalDate.now(), "Автор проекта.",
                 "Создание, организация и проведение Java онлайн проектов и стажировок.");
         List<Position> javaOnlineProjectsPoitions = new ArrayList<>();
         javaOnlineProjectsPoitions.add(javaOnlineProjectsPoition1);
-        Experience javaOnlineProjects = new Experience("Java Online Projects",javaOnlineProjectsPoitions);
+        Company javaOnlineProjects = new Company("Java Online Projects", javaOnlineProjectsPoitions);
         allJobs.add(javaOnlineProjects);
 
         Position wrikePosition1 = new Position(LocalDate.of(2014, 10, 02), LocalDate.of(2016, 01, 31),
@@ -111,7 +113,7 @@ public class ResumeTestData {
                         + " Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
         List<Position> wrikePositions = new ArrayList<>();
         wrikePositions.add(wrikePosition1);
-        Experience wrike = new Experience("Wrike", wrikePositions);
+        Company wrike = new Company("Wrike", wrikePositions);
         allJobs.add(wrike);
 
         String jobDescriptionRit = "Организация процесса разработки системы ERP для разных окружений:"
@@ -123,10 +125,10 @@ public class ResumeTestData {
                 + " Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting"
                 + " via ssh tunnels, PL/Python";
         Position ritCenterPosition1 = new Position(LocalDate.of(2012, 04, 01),
-                LocalDate.of(2014, 10, 01),"Java архитектор", jobDescriptionRit);
+                LocalDate.of(2014, 10, 01), "Java архитектор", jobDescriptionRit);
         List<Position> ritCenterPositions = new ArrayList<>();
         ritCenterPositions.add(ritCenterPosition1);
-        Experience ritCenter = new Experience("RIT Center", ritCenterPositions);
+        Company ritCenter = new Company("RIT Center", ritCenterPositions);
         allJobs.add(ritCenter);
 
         String jobDescriptionLuxoft = "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC,"
@@ -137,7 +139,7 @@ public class ResumeTestData {
                 LocalDate.of(2014, 04, 30), "Ведущий программист", jobDescriptionLuxoft);
         List<Position> luxoftPositions = new ArrayList<>();
         luxoftPositions.add(luxoftPosition1);
-        Experience luxoft = new Experience("Luxoft (Deutsche Bank)",luxoftPositions);
+        Company luxoft = new Company("Luxoft (Deutsche Bank)", luxoftPositions);
         allJobs.add(luxoft);
 
         String jobDescriptionYota = "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\""
@@ -149,16 +151,16 @@ public class ResumeTestData {
                 "Ведущий специалист", jobDescriptionYota);
         List<Position> yotaPositions = new ArrayList<>();
         yotaPositions.add(yotaPosition1);
-        Experience yota = new Experience("Yota", yotaPositions);
+        Company yota = new Company("Yota", yotaPositions);
         allJobs.add(yota);
 
         String jobDescriptionEnkata = "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0,"
                 + " Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining).";
         Position enkataPosition1 = new Position(LocalDate.of(2007, 03, 02),
-                LocalDate.of(2008, 06, 01),"Разработчик ПО", jobDescriptionEnkata);
+                LocalDate.of(2008, 06, 01), "Разработчик ПО", jobDescriptionEnkata);
         List<Position> enkataPositions = new ArrayList<>();
         enkataPositions.add(enkataPosition1);
-        Experience enkata = new Experience("Enkata", enkataPositions);
+        Company enkata = new Company("Enkata", enkataPositions);
         allJobs.add(enkata);
 
         String jobDescriptionSiemens = "Разработка информационной модели, проектирование интерфейсов, реализация и"
@@ -168,7 +170,7 @@ public class ResumeTestData {
                 "Разработчик ПО", jobDescriptionSiemens);
         List<Position> siemensPositions = new ArrayList<>();
         siemensPositions.add(siemensPosition1);
-        Experience siemens = new Experience("Siemens AG", siemensPositions);
+        Company siemens = new Company("Siemens AG", siemensPositions);
         allJobs.add(siemens);
 
         String jobDescriptionAlcatel = "Тестирование, отладка, внедрение ПО цифровой телефонной станции"
@@ -178,27 +180,27 @@ public class ResumeTestData {
                 "Инженер по аппаратному и программному тестированию", jobDescriptionAlcatel);
         List<Position> alcatelPositions = new ArrayList<>();
         alcatelPositions.add(alcatelPosition1);
-        Experience alcatel = new Experience("Alcatel", alcatelPositions);
+        Company alcatel = new Company("Alcatel", alcatelPositions);
         allJobs.add(alcatel);
 
-        List<Experience> allSchools = new ArrayList<>();
+        List<Company> allSchools = new ArrayList<>();
         Section education = new CompanySection(allSchools);
         resume.addSection(SectionType.EDUCATION, education);
 
         Position courseraPosition1 = new Position(LocalDate.of(2013, 03, 01),
                 LocalDate.of(2013, 05, 01),
-                "","Functional Programming Principles in Scala\" by Martin Odersky");
+                "", "Functional Programming Principles in Scala\" by Martin Odersky");
         List<Position> courseraPositions = new ArrayList<>();
         courseraPositions.add(courseraPosition1);
-        Experience coursera = new Experience("Coursera", courseraPositions);
+        Company coursera = new Company("Coursera", courseraPositions);
         allSchools.add(coursera);
 
         Position luxoftSchoolPosition1 = new Position(LocalDate.of(2011, 03, 01),
-                LocalDate.of(2011, 04, 01),"",
+                LocalDate.of(2011, 04, 01), "",
                 "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
         List<Position> luxoftSchoolPositions = new ArrayList<>();
         luxoftSchoolPositions.add(luxoftSchoolPosition1);
-        Experience luxoftSchool = new Experience("Luxoft", luxoftSchoolPositions);
+        Company luxoftSchool = new Company("Luxoft", luxoftSchoolPositions);
         allSchools.add(luxoftSchool);
 
         Position siemensSchoolPosition1 = new Position(LocalDate.of(2005, 01, 01),
@@ -206,7 +208,7 @@ public class ResumeTestData {
                 "3 месяца обучения мобильным IN сетям (Берлин)");
         List<Position> siemensSchoolPositions = new ArrayList<>();
         siemensSchoolPositions.add(siemensSchoolPosition1);
-        Experience siemensSchool = new Experience("Siemens AG", siemensSchoolPositions);
+        Company siemensSchool = new Company("Siemens AG", siemensSchoolPositions);
         allSchools.add(siemensSchool);
 
         Position alcatelSchoolPosition1 = new Position(LocalDate.of(1997, 9, 01),
@@ -214,7 +216,7 @@ public class ResumeTestData {
                 "6 месяцев обучения цифровым телефонным сетям (Москва)");
         List<Position> alcatelSchoolPositions = new ArrayList<>();
         alcatelSchoolPositions.add(alcatelSchoolPosition1);
-        Experience alcatelSchool = new Experience("Alcatel", alcatelSchoolPositions);
+        Company alcatelSchool = new Company("Alcatel", alcatelSchoolPositions);
         allSchools.add(alcatelSchool);
 
         Position universityPosition1 = new Position(LocalDate.of(1993, 9, 01),
@@ -226,7 +228,7 @@ public class ResumeTestData {
         List<Position> universityPositions = new ArrayList<>();
         universityPositions.add(universityPosition1);
         universityPositions.add(universityPosition2);
-        Experience university = new Experience("Санкт-Петербургский национальный"
+        Company university = new Company("Санкт-Петербургский национальный"
                 + " исследовательский университет информационных технологий, механики и оптики",
                 universityPositions);
         allSchools.add(university);
@@ -236,7 +238,7 @@ public class ResumeTestData {
                 "Закончил с отличием");
         List<Position> schoolPositions = new ArrayList<>();
         schoolPositions.add(schoolPosition1);
-        Experience school = new Experience("Заочная физико-техническая школа при МФТИ", schoolPositions);
+        Company school = new Company("Заочная физико-техническая школа при МФТИ", schoolPositions);
         allSchools.add(school);
 
         return resume;

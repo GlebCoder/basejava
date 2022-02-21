@@ -1,14 +1,14 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.ResumeTestData;
 import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
-import com.basejava.webapp.model.ResumeTestData;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -92,7 +92,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() throws Exception {
-        List<Resume> expectedResumes = new ArrayList<>(List.of(RESUME1, RESUME2, RESUME3));
+        List<Resume> expectedResumes = Arrays.asList(RESUME1, RESUME2, RESUME3);
         List<Resume> actualResumes = storage.getAllSorted();
         Collections.sort(expectedResumes);
         Assert.assertEquals(expectedResumes, actualResumes);

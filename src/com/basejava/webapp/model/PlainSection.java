@@ -2,7 +2,7 @@ package com.basejava.webapp.model;
 
 import java.util.Objects;
 
-public class PlainSection implements Section{
+public class PlainSection implements Section {
     private final String content;
 
     public PlainSection(String content) {
